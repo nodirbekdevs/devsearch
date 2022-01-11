@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from .models import Profile, Skill
@@ -38,9 +36,3 @@ def search_profiles(request):
         Q(skill__in=skills)
     )
     return profiles, search_query
-
-
-def set_cookies(response, cid, cid2):
-    response.set_cookie('cid', cid)
-    response.set_cookie('cid2', cid2)
-    return response

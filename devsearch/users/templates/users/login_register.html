@@ -53,19 +53,12 @@
 
         <form action="{% url 'login' %}" class="form auth__form" method="POST">
             {% csrf_token %}
-<!--            {% for field in form %}-->
-<!--            <div class="form__field">-->
-<!--                <label for="formInput#text">{{field.label}}</label>-->
-<!--                {{field}}-->
-<!--            </div>-->
-<!--            {% endfor %}-->
             <div class="form__field">
                 <label for="formInput#text">Username: </label>
                 <input
                         class="input input--text"
                         id="formInput#text"
                         type="text"
-                        value="{{cookie1}}"
                         name="username"
                         placeholder="Enter your username..."
                 />
@@ -76,18 +69,8 @@
                         class="input input--password"
                         id="formInput#passowrd"
                         type="password"
-                        value="{{cookie2}}"
                         name="password"
                         placeholder="••••••••"
-                />
-            </div>
-            <div class="form__field">
-                <label for="formInput#checkbox">Remember me: </label>
-                <input
-                        class="input"
-                        id="formInput#checkbox"
-                        type="checkbox"
-                        name="checkbox"
                 />
             </div>
             <div class="auth__actions">

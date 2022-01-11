@@ -5,15 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import error, info, success
 from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
-from .utils import search_profiles, paginate_profiles, set_cookies
+from .utils import search_profiles, paginate_profiles
 
 
 def login_user(request):
     page = 'login'
-    usern, passw, cid, cid2 = '', '', '', ''
-    if request.COOKIES['cid'] and request.COOKIES['cid2']:
-        cid = request.COOKIES['cid']
-        cid2 = request.COOKIES['cid2']
     if request.user.is_authenticated:
         return redirect('profiles')
     if request.method == 'POST':
@@ -25,18 +21,12 @@ def login_user(request):
             error(request, 'Username does not exist')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if request.POST.get('checkbox', True):
-                usern = username
-                passw = password
             login(request, user)
             redirect(request.GET['next'] if 'next' in request.GET else 'account')
             info(request, 'User logged in')
         else:
             error(request, 'Username or password is incorrect')
-
-    context = {'cookie1': cid, 'cookie2': cid2}
-    response = render(request, 'users/login_register.html', context)
-    set_cookies(response, usern, passw)
+    return render(request, 'users/login_register.html')
 
 
 def logout_user(request):
